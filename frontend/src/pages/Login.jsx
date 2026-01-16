@@ -10,10 +10,16 @@ function Login() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    console.log("Login attempt:", { username, password, rememberMe });
+    try {
+      const response = await axios.post("http://localhost:3000/api/auth/login", {
+        username,
+        password
+      });
+      alert(`Logged in as ${username}`);
+    } catch (error) {
+      console.error("Login failed:", error);
+      alert("Login failed. Please try again.");
+    }
     setIsSubmitting(false);
   };
 
